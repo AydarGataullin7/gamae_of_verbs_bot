@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+env/
+.env/
+.vscode/
+.idea/
+*.iml
+*.json
+.env
