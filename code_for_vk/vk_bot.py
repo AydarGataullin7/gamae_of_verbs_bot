@@ -11,12 +11,13 @@ project_id = os.getenv('PROJECT_ID')
 
 def echo(event, vk_api, project_id):
     session_id = str(event.user_id)
-    reply = detect_intent(project_id, session_id, event.text)
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=reply,
-        random_id=random.randint(1, 1000)
-    )
+    reply, is_fallback = detect_intent(project_id, session_id, event.text)
+    if not is_fallback:
+        vk_api.messages.send(
+            user_id=event.user_id,
+            message=reply,
+            random_id=random.randint(1, 1000)
+        )
 
 
 def detect_intent(project_id, session_id, text):
@@ -27,7 +28,8 @@ def detect_intent(project_id, session_id, text):
     response = client.detect_intent(
         request={'session': session, 'query_input': query_input})
     response_text = response.query_result.fulfillment_text
-    return response_text
+    is_fallback = response.query_result.intent.is_fallback
+    return response_text, is_fallback
 
 
 if __name__ == '__main__':
