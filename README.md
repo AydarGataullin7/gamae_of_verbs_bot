@@ -7,6 +7,11 @@
 - **Telegram**: [@games_of_words_bot](https://t.me/games_of_words_bot)
 - **ВКонтакте**: https://vk.ru/club240848359
 
+## Демонстрация
+
+![Диалог с telegram-ботом](tg.gif)
+![Диалог с вк-ботом](вк.gif)
+
 ## Как запустить
 
 1. Установи зависимости:
