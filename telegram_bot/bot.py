@@ -14,7 +14,7 @@ def start(update: Update, context: CallbackContext):
 
 def handle_message(update: Update, context: CallbackContext, project_id):
     user_text = update.message.text
-    session_id = str(update.effective_chat.id)
+    session_id = f"tg_{update.effective_chat.id}"
     reply, _ = detect_intent(project_id, session_id, user_text)
     context.bot.send_message(chat_id=update.effective_chat.id, text=reply)
 

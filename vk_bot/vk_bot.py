@@ -7,7 +7,7 @@ from dialogflow_client import detect_intent
 
 
 def handle_message(event, vk_api, project_id):
-    session_id = str(event.user_id)
+    session_id = f"vk_{event.user_id}"
     reply, is_fallback = detect_intent(project_id, session_id, event.text)
     if not is_fallback:
         vk_api.messages.send(
