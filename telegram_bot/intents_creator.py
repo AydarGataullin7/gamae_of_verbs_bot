@@ -1,6 +1,6 @@
 import json
 import os
-import time
+import argparse
 from dotenv import load_dotenv
 from google.cloud import dialogflow_v2 as dialogflow
 
@@ -26,18 +26,29 @@ def create_intent(project_id, display_name, training_phrases, answer_text):
         }]
     }
     response = intents_client.create_intent(
-            request={
-                'parent': parent, 
-                'intent': intent,
-                'language_code': 'ru'
-            }
-        )
+        request={
+            'parent': parent, 
+            'intent': intent,
+            'language_code': 'ru'
+        }
+    )
+    return response
+
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Создание Intent в DialogFlow')
+    parser.add_argument(
+        '--questions-path',
+        '-p',
+        type=str,
+        default='questions.json'
+    )
+    args = parser.parse_args()
+
     load_dotenv()
     project_id = os.getenv('PROJECT_ID')
 
-    with open('questions.json', 'r', encoding='utf-8') as file:
+    with open(args.questions_path, 'r', encoding='utf-8') as file:
         questions = json.load(file)
 
     for topic_name, topic_data in questions.items():
