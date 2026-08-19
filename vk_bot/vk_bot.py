@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 from vk_api.longpoll import VkLongPoll, VkEventType
 from dialogflow_client import detect_intent
 
-def echo(event, vk_api, project_id):
+
+def handle_message(event, vk_api, project_id):
     session_id = str(event.user_id)
     reply, is_fallback = detect_intent(project_id, session_id, event.text)
     if not is_fallback:
@@ -24,4 +25,4 @@ if __name__ == '__main__':
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api, project_id)
+            handle_message(event, vk_api, project_id)
