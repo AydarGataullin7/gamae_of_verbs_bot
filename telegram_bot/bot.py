@@ -21,7 +21,7 @@ def handle_message(update: Update, context: CallbackContext, project_id):
 
 if __name__ == '__main__':
     load_dotenv()
-    PROJECT_ID = os.getenv('PROJECT_ID')
+    project_id = os.getenv('PROJECT_ID')
     updater = Updater(token=os.getenv("TG_BOT_TOKEN"))
     dispatcher = updater.dispatcher
     logging.basicConfig(
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(CommandHandler('start', start))
     dispatcher.add_handler(MessageHandler(
         Filters.text & ~Filters.command,
-        partial(handle_message, project_id=PROJECT_ID)
+        partial(handle_message, project_id=project_id)
     ))
 
     updater.start_polling()
