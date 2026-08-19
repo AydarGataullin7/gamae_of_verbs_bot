@@ -5,9 +5,6 @@ from telegram.ext import Updater, CallbackContext, CommandHandler, MessageHandle
 from google.cloud import dialogflow_v2 as dialogflow
 from dotenv import load_dotenv
 
-load_dotenv()
-
-
 def start(update: Update, context: CallbackContext):
     context.bot.send_message(
         chat_id=update.effective_chat.id, text="Здравствуйте!")
@@ -32,6 +29,7 @@ def detect_intent(project_id, session_id, text):
 
 
 if __name__ == '__main__':
+    load_dotenv()    
     updater = Updater(token=os.getenv("TG_BOT_TOKEN"))
     PROJECT_ID = os.getenv("PROJECT_ID")
     dispatcher = updater.dispatcher

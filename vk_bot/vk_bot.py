@@ -5,10 +5,6 @@ from google.cloud import dialogflow_v2 as dialogflow
 from dotenv import load_dotenv
 from vk_api.longpoll import VkLongPoll, VkEventType
 
-load_dotenv()
-project_id = os.getenv('PROJECT_ID')
-
-
 def echo(event, vk_api, project_id):
     session_id = str(event.user_id)
     reply, is_fallback = detect_intent(project_id, session_id, event.text)
@@ -33,6 +29,8 @@ def detect_intent(project_id, session_id, text):
 
 
 if __name__ == '__main__':
+    load_dotenv()
+    project_id = os.getenv('PROJECT_ID')
     vk_session = vk_api.VkApi(token=os.getenv("VK_TOKEN"))
     vk_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
